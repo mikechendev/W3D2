@@ -72,13 +72,13 @@ class Board
     
 end
 
-game_1 = Board.new
-game_1.populate
-p game_1.render
-(0...4).each do |mini|
-    (0...4).each do |mouse|
-        game_1.reveal([mini, mouse])
-    end
-end
-p game_1.render
-p game_1.won?
+# game_1 = Board.new
+# game_1.play
+# p game_1.render
+# (0...4).each do |mini|
+#     (0...4).each do |mouse|
+#         game_1.reveal([mini, mouse])
+#     end
+# end
+# p game_1.render
+# p game_1.won?
