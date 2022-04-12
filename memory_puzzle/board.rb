@@ -1,7 +1,7 @@
 require_relative "card"
 
 class Board
-    
+    attr_reader :board
     def initialize
         @board = Array.new(4) {Array.new(4)}
         #size = @board.length * @board[0].length
@@ -22,6 +22,21 @@ class Board
             character = arr_1.shift
             new_arr << Card.new(character)
         end
-        new_arr.each
+        new_arr.shuffle!
+        (0...4).each do |i|
+            (0...4).each do |j|
+                @board[i][j] = new_arr.shift
+            end
+        end
+    end
+
+    def render
+        @board.each do |mini_array|
+            puts mini_array.join(' ')
+        end
     end
 end
+
+board = Board.new
+board.populate
+board.render
