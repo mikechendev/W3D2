@@ -10,14 +10,22 @@ class Game
         while !@board.won?
             @previous_guess = nil
             puts 'enter a position with a comma in between'
-            @previous_guess = gets.chomp.split(',').map(&:to_i)
-            system("clear")
-            @board[@previous_guess].reveal
-            @board.render
-            puts 'enter another position'
-            @current_guess = gets.chomp.split(',').map(&:to_i)
-            @board[@current_guess].reveal
-            @board.render
+            begin 
+                @previous_guess = gets.chomp.split(',').map(&:to_i)
+                raise 'error' if !@board[@previous_guess].reveal
+                @board.render
+            rescue
+                puts 'enter another position'
+                retry
+            end
+            begin
+                @current_guess = gets.chomp.split(',').map(&:to_i)
+                raise 'error' if !@board[@current_guess].reveal
+                @board.render
+            rescue
+                puts 'enter another position'
+                retry
+            end
             unless @board[@previous_guess] == @board[@current_guess]
                 @board[@previous_guess].hide
                 @board[@current_guess].hide

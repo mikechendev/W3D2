@@ -37,7 +37,7 @@ class Board
                 if card.face_up
                     saved << card.face_value
                 else
-                    saved << " "
+                    saved << "_"
                 end
             end
             puts saved.join(' ')
@@ -54,8 +54,12 @@ class Board
 
     def reveal(position)
         card = self[position]
-        card.reveal
-        card.face_value
+        if card.face_up == false
+            card.reveal
+            card.face_value
+            return true
+        end
+        false
     end
 
     def won?
