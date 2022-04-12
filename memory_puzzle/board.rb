@@ -32,11 +32,49 @@ class Board
 
     def render
         @board.each do |mini_array|
-            puts mini_array.join(' ')
+            saved = []
+            mini_array.each do |card|
+                if card.face_up
+                    saved << card.face_value
+                else
+                    saved << " "
+                end
+            end
+            puts saved.join(' ')
         end
     end
+
+    def [](position)
+        @board[position[0]][position[1]]
+    end
+
+    def []=(position, value)
+        @board[position[0]][position[1]] = value
+    end
+
+    def reveal(position)
+        card = self[position]
+        card.reveal
+        card.face_value
+    end
+
+    def won?
+        @board.all? do |miniArray|
+            miniArray.all? do |card|
+                card.face_up == true
+            end
+        end
+    end
+    
 end
 
-board = Board.new
-board.populate
-board.render
+game_1 = Board.new
+game_1.populate
+p game_1.render
+(0...4).each do |mini|
+    (0...4).each do |mouse|
+        game_1.reveal([mini, mouse])
+    end
+end
+p game_1.render
+p game_1.won?
