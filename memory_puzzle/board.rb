@@ -1,3 +1,5 @@
+require_relative "card"
+
 class Board
     
     def initialize
@@ -13,7 +15,13 @@ class Board
     end
 
     def populate
-        arr1 = ('a'..'h').to_a
-        arr2 = ('a'..'h').to_a
+        arr_1 = ('a'..'h').to_a
+        arr_1 = arr_1 + arr_1
+        new_arr = []
+        16.times do 
+            character = arr_1.shift
+            new_arr << Card.new(character)
+        end
+        new_arr.each
     end
 end
